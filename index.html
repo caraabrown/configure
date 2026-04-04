@@ -320,7 +320,8 @@ function generate() {
 
 function buildDocument(selected) {
   // Decode base64 worksample
-  const raw = atob(document.getElementById('wsData').value);
+  const bytes = Uint8Array.from(atob(document.getElementById('wsData').value), c => c.charCodeAt(0));
+  const raw = new TextDecoder('utf-8').decode(bytes);
   const parser = new DOMParser();
   const doc = parser.parseFromString(raw, 'text/html');
 
